@@ -10,13 +10,14 @@
 
     <!-- Barres de progression (ou "orbes") -->
     <div class="progress-orbs">
-      <div v-for="task in tasks" :key="task.id" class="orb" :class="{ completed: task.completed }"
+      <span v-for="task in tasks" :key="task.id" class="orb" :class="{ completed: task.completed }"
         @click="toggleTask(task)">
-        {{ task.id }}
-      </div>
+      </span>
     </div>
 
-    <!-- Liste de tâches (avec checkboxes) -->
+    <h2>
+      Intel Of The Day
+    </h2>
     <ul class="checklist">
       <li v-for="task in tasks" :key="task.id">
         <input type="checkbox" v-model="task.completed" @change="onTaskChange" />
@@ -30,12 +31,7 @@
 import { ref, onMounted } from 'vue'
 
 // Référence vers notre liste de tâches
-const tasks = ref([
-  { id: 1, title: 'Faire du sport', completed: false },
-  { id: 2, title: 'Lire un chapitre', completed: false },
-  { id: 3, title: 'Prendre des nouvelles d\'un proche', completed: false },
-  { id: 4, title: 'Coder un peu', completed: false },
-])
+const tasks = ref([])
 
 // Saisie pour la nouvelle tâche
 const newTaskTitle = ref('')
@@ -90,35 +86,62 @@ function addTask() {
 </script>
 
 <style scoped>
+/* Conteneur principal */
 .app-container {
-  margin: 2rem;
+  /* Sur mobile, on occupe toute la largeur avec un padding */
+  padding: 1rem;
+  margin: 0 auto;
+  /* permet de centrer quand on est en desktop */
   text-align: center;
-  font-family: sans-serif;
 }
 
+/* Titre */
+h1 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+h2 {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Section d'ajout de tâche */
 .add-task-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 1rem;
 }
 
-input[type="text"] {
+.add-task-container input[type="text"] {
   padding: 0.5rem;
+  font-size: 1rem;
+  flex: 1;
+  max-width: 200px;
+  /* Sur mobile, ça prendra la largeur, sur grand écran, on limite un peu */
 }
 
-button {
+.add-task-container button {
+  padding: 0.5rem 1rem;
   margin-left: 0.5rem;
-  padding: 0.5rem;
+  font-size: 1rem;
 }
 
+/* La rangée d’orbes (mobile-first) */
 .progress-orbs {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  /* Permet de passer à la ligne si l'écran est vraiment étroit */
+  gap: .5rem;
+  justify-content: left;
   margin-bottom: 2rem;
 }
 
 .orb {
-  width: 50px;
-  height: 50px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
   border: 3px solid gold;
   display: flex;
@@ -135,5 +158,33 @@ button {
 
 .checklist {
   list-style: none;
+  padding: 0;
+  text-align: left;
+  margin: 0 auto;
+  max-width: 300px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+/* 
+  Media Query pour écrans plus larges (>= 768px) 
+  -> On limite la largeur du conteneur pour un meilleur centrage
+*/
+@media (min-width: 768px) {
+  .app-container {
+    max-width: 500px;
+    /* Ajustable : tu peux viser 600-700px ou plus */
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
 }
 </style>
