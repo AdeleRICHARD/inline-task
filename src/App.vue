@@ -86,16 +86,13 @@ function addTask() {
 </script>
 
 <style scoped>
-/* Conteneur principal */
 .app-container {
-  /* Sur mobile, on occupe toute la largeur avec un padding */
   padding: 1rem;
   margin: 0 auto;
-  /* permet de centrer quand on est en desktop */
   text-align: center;
 }
 
-/* Titre */
+/* Title */
 h1 {
   margin-bottom: 1rem;
   font-size: 1.5rem;
@@ -106,12 +103,13 @@ h2 {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-/* Section d'ajout de tâche */
+/* Add task */
 .add-task-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
+  gap: .5rem;
 }
 
 .add-task-container input[type="text"] {
@@ -119,21 +117,35 @@ h2 {
   font-size: 1rem;
   flex: 1;
   max-width: 200px;
-  /* Sur mobile, ça prendra la largeur, sur grand écran, on limite un peu */
 }
 
 .add-task-container button {
+  border: none;  
+  outline: none;
+  background: linear-gradient(to right, #4facfe, #2f8adf);
+  color: #fff;  
   padding: 0.5rem 1rem;
-  margin-left: 0.5rem;
+  border-radius: 5px;
   font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out, background-color 0.2s ease-in-out;
 }
 
-/* La rangée d’orbes (mobile-first) */
+.add-task-container button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(to right, #3e8ddb, #00c9d8);
+}
+
+.add-task-container button:active {
+  transform: translateY(0);
+  background: linear-gradient(to right, #3490d1, #00b8bd);
+}
+
+/* Orbs */
 .progress-orbs {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  /* Permet de passer à la ligne si l'écran est vraiment étroit */
   gap: .5rem;
   justify-content: left;
   margin-bottom: 2rem;
@@ -173,18 +185,17 @@ input[type="checkbox"] {
   margin-right: 0.5rem;
 }
 
-/* 
-  Media Query pour écrans plus larges (>= 768px) 
-  -> On limite la largeur du conteneur pour un meilleur centrage
-*/
 @media (min-width: 768px) {
   .app-container {
     max-width: 500px;
-    /* Ajustable : tu peux viser 600-700px ou plus */
   }
 
   h1 {
     font-size: 2rem;
+  }
+
+  .progress-orbs {
+    justify-content: center;
   }
 }
 </style>
