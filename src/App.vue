@@ -14,16 +14,18 @@
         @click="toggleTask(task)">
       </span>
     </div>
-
-    <h2>
-      Intel Of The Day
-    </h2>
-    <ul class="checklist">
-      <li v-for="task in tasks" :key="task.id">
-        <input type="checkbox" v-model="task.completed" @change="onTaskChange" />
-        {{ task.title }}
-      </li>
-    </ul>
+    <section  v-if="tasks.length > 0">
+      <h2>
+        Intel Of The Day
+      </h2>
+      <ul class="checklist">
+        <li v-for="task in tasks" :key="task.id">
+          <input type="checkbox" v-model="task.completed" @change="onTaskChange" />
+          {{ task.title }}
+        </li>
+      </ul>
+      <button @click="clearTasks" class="clear-btn">Clear</button>
+    </section>
   </div>
 </template>
 
@@ -83,6 +85,11 @@ function addTask() {
   // Enregistrer
   saveTasks()
 }
+
+function clearTasks() {
+  localStorage.removeItem('my-tasks')
+  tasks.value = []
+}
 </script>
 
 <style scoped>
@@ -139,6 +146,30 @@ h2 {
 .add-task-container button:active {
   transform: translateY(0);
   background: linear-gradient(to right, #3490d1, #00b8bd);
+}
+
+
+/* Clear button */
+.clear-btn {
+  border: none;  
+  outline: none;
+  background: linear-gradient(to right, #0f0f0f, #706e6e);
+  color: #fff;  
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.clear-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(to right,  #0f0f0f, #999999);
+}
+
+.clear-btn:active {
+  transform: translateY(0);
+  background: linear-gradient(to right,  #0f0f0f, #999999);
 }
 
 /* Orbs */
